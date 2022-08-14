@@ -1,3 +1,6 @@
+#arquivos e pastas de controle
+.dist
+
 # Logs
 logs
 *.log
