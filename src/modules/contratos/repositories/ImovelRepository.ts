@@ -1,70 +1,61 @@
+import { Repository } from 'typeorm';
 import { Imovel } from '../model/Imovel';
+import { dataSource } from '../../../database/dataSource'
 
 interface ICriaImovelDTO {
 	nome: string;
 	endereco: string;
 	numero: number;
-	valor: number;
+	valor_aluguel?: number;
 	valor_iptu?: number;
 }
 
-class ImovelRepository {
-	private imovel: Imovel[];
+interface IImovelRepository {
+	criar({nome, endereco, numero, valor_aluguel, valor_iptu}: ICriaImovelDTO): Promise<Imovel>
+	listaImoveis(): Promise<Imovel[]>
+	buscaPorId(id: string): Promise<Imovel> | undefined
+	buscaPorNome(nome: string): Promise<Imovel> | undefined
+	excluir(id: string): Promise<void> 
+}
 
-	private static INSTANCE: ImovelRepository;
+class ImovelRepository implements IImovelRepository{
+	private repositorio: Repository<Imovel>;
 
-	private constructor(){
-		this.imovel = [];
+	constructor(){
+		this.repositorio = dataSource.getRepository(Imovel)
 	}
 
-	public static getInstance(): ImovelRepository {
-		if (!ImovelRepository.INSTANCE) {
-			ImovelRepository.INSTANCE = new ImovelRepository();
-		}
+	async criar({nome, endereco, numero, valor_aluguel, valor_iptu}: ICriaImovelDTO): Promise<Imovel> {
+		const novoImovel = this.repositorio.create({nome, endereco, numero, valor_aluguel, valor_iptu})
 
-		return ImovelRepository.INSTANCE;
+		await this.repositorio.save(novoImovel);
+
+		return novoImovel;
 	}
 
-	criar({nome, endereco, numero, valor, valor_iptu}: ICriaImovelDTO): Imovel {
-		const imovel = new Imovel();
-
-		Object.assign(imovel,{
-			nome,
-			endereco,
-			numero,
-			valor,
-			valor_iptu
-		})
-
-		this.imovel.push(imovel);
-
-		return imovel;
-	}
-
-	listaImoveis(): Imovel[]{
-		const imoveis = this.imovel
+	async listaImoveis(): Promise<Imovel[]> {
+		const imoveis = await this.repositorio.find();
 
 		return imoveis;
 	}
 
-	consultaPorId(id: string): Imovel | undefined {
-		const retornoImovel = this.imovel.find(imovel => imovel.id === id);
+	async buscaPorId(id: string): Promise<Imovel> | undefined {
+		const retornoImovel = await this.repositorio.findOneBy({id});
 
 		return retornoImovel;
 	}
 
-	buscaPorNome(nome: string): Imovel | undefined {
-		const imovel = this.imovel.find(imovel => imovel.nome === nome);
+	async buscaPorNome(nome: string): Promise<Imovel> | undefined {
+		const imovel = await this.repositorio.findOneBy({nome});
 
 		return imovel;
 	}
 
-	excluir(id: string): void {
-		const indiceImovel = this.imovel.findIndex(imovel => imovel.id === id);
+	async excluir(id: string): Promise<void> {
+		const indiceImovel = await this.repositorio.delete({id});
 		
-		this.imovel.splice(indiceImovel,1)
 	}
 	
 }
 
-export {ImovelRepository};
+export {ImovelRepository, IImovelRepository};

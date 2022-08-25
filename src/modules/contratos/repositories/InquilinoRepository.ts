@@ -1,4 +1,6 @@
+import { Repository } from 'typeorm';
 import { Inquilino } from '../model/Inquilino';
+import { dataSource } from '../../../database/dataSource'
 
 interface ICriaInquilinoDTO {
 	cpf: string;
@@ -8,57 +10,39 @@ interface ICriaInquilinoDTO {
 }
 
 class InquilinoRepository {
-	private inquilinos: Inquilino[];
+	private repositorio: Repository<Inquilino>;
 
-	private static INSTANCE: InquilinoRepository;
-
-	private constructor(){
-		this.inquilinos = [];
+	constructor(){
+		this.repositorio = dataSource.getRepository(Inquilino);
 	}
 
-	public static getInstance(): InquilinoRepository {
-		if (!InquilinoRepository.INSTANCE) {
-			InquilinoRepository.INSTANCE = new InquilinoRepository();
-		}
+	async criar({cpf, nome, telefone, email}: ICriaInquilinoDTO): Promise<Inquilino> {
+		const inquilino = this.repositorio.create({cpf, nome, telefone, email});
 
-		return InquilinoRepository.INSTANCE;
-	}
-
-	criar({cpf, nome, telefone, email}: ICriaInquilinoDTO): Inquilino {
-		const inquilino = new Inquilino();
-
-		Object.assign(inquilino,{
-			cpf, 
-			nome, 
-			telefone, 
-			email
-		});
-
-		this.inquilinos.push(inquilino);
+		await this.repositorio.save(inquilino);
 
 		return inquilino;
 	};
 
-	listar(): Inquilino[] {
-		return this.inquilinos;
+	async listar(): Promise<Inquilino[]> {
+		return await this.repositorio.find();
 	};
 
-	buscaPorId(id: string): Inquilino | undefined {
-		const inquilino = this.inquilinos.find(inquilino => inquilino.id === id);
+	 async buscaPorId(id: string): Promise<Inquilino> | undefined {
+		const inquilino = await this.repositorio.findOneBy({id});
 
 		return inquilino;
 	};
 
-	buscaPorCPF(cpf: string): Inquilino | undefined {
-		const inquilino = this.inquilinos.find(inquilino => inquilino.cpf === cpf);
+	async buscaPorCPF(cpf: string): Promise<Inquilino> | undefined {
+		const inquilino = await this.repositorio.findOneBy({cpf});
 
 		return inquilino;
 	};
 
-	excluir(id: string): void {
-		const indiceInquilino = this.inquilinos.findIndex(inquilino => inquilino.id === id);
+	async excluir(id: string): Promise<void> {
+		await this.repositorio.delete({id});
 
-		this.inquilinos.splice(indiceInquilino,1);
 	}
 
 

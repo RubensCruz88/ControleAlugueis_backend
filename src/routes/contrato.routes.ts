@@ -1,16 +1,15 @@
 import { Router } from 'express';
 
-import { criaContratoController } from '../modules/contratos/useCases/contrato/criaContrato';
-import { listaContratosController } from '../modules/contratos/useCases/contrato/listaContratos';
+import { CriaContratoController } from '../modules/contratos/useCases/contrato/criaContrato/CriaContratoController';
+import { ListaContratosController } from '../modules/contratos/useCases/contrato/listaContratos/ListaContratosController';
 
 const contratoRotas = Router();
 
-contratoRotas.post("/", (request, response) => {
-	criaContratoController.handle(request, response);
-});
+const criaContratoController = new CriaContratoController();
+const listaContratosController = new ListaContratosController();
 
-contratoRotas.get("/", (request, response) => {
-	listaContratosController.handle(request, response);
-});
+contratoRotas.post("/", criaContratoController.handle);
+
+contratoRotas.get("/", listaContratosController.handle);
 
 export { contratoRotas};

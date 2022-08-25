@@ -1,11 +1,16 @@
+import { inject, injectable} from 'tsyringe';
 import { Imovel } from '../../../model/Imovel';
 import { ImovelRepository } from '../../../repositories/ImovelRepository';
 
+@injectable()
 class ListaImovelPorIdService {
-	constructor( private imovelRepository: ImovelRepository){}
+	constructor(
+		@inject("ImovelRepository")
+		private imovelRepository: ImovelRepository
+	){}
 
-	execute(id: string): Imovel {
-		const imovel = this.imovelRepository.consultaPorId(id);
+	async execute(id: string): Promise<Imovel> {
+		const imovel = await this.imovelRepository.buscaPorId(id);
 
 		if(!imovel){
 			throw new Error("Imóvel não encontrado");

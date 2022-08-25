@@ -1,13 +1,30 @@
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
+@Entity("contrato")
 class Contrato {
+	@PrimaryColumn()
 	id: string;
+
+	@Column()
 	inicio: Date;
+
+	@Column()
 	fim?: Date;
+
+	@Column()
 	imovel_id: string;
+
+	@Column()
 	inquilino_id: string;
-	vencimento: number;
+
+	@Column()
+	vencimento_fatura: number;
+
+	@CreateDateColumn()
 	created_at: Date;
+
+	@CreateDateColumn()
 	updated_at: Date;
 
 	constructor(){
@@ -19,9 +36,6 @@ class Contrato {
 			this.created_at = new Date();
 		}
 
-		if(!this.updated_at){
-			this.updated_at = new Date();
-		}
 	}
 }
 

@@ -1,13 +1,18 @@
+import { inject, injectable} from 'tsyringe';
 import { Imovel } from '../../../model/Imovel';
 import { ImovelRepository } from '../../../repositories/ImovelRepository';
 
+@injectable()
 class ListaImoveisService {
-	constructor( private imovelRepository: ImovelRepository){}
+	constructor(
+		@inject("ImovelRepository")
+		private imovelRepository: ImovelRepository
+	){}
 
-	execute(): Imovel[] {
-		const retornoImovel = this.imovelRepository.listaImoveis();
+	async execute(): Promise<Imovel[]> {
+		const retornoImoveis = await this.imovelRepository.listaImoveis();
 
-		return retornoImovel;
+		return retornoImoveis;
 	}
 }
 

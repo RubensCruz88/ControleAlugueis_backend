@@ -1,10 +1,15 @@
+import { inject, injectable} from 'tsyringe';
 import { InquilinoRepository } from '../../../repositories/InquilinoRepository';
 
+@injectable()
 class ExcluiInquilinoService {
-	constructor(private inquilinoRepository: InquilinoRepository){}
+	constructor(
+		@inject("InquilinoRepository")
+		private inquilinoRepository: InquilinoRepository
+	){}
 
-	execute(id: string): void {
-		const inquilinoExiste = this.inquilinoRepository.buscaPorId(id);
+	async execute(id: string): Promise<void> {
+		const inquilinoExiste = await this.inquilinoRepository.buscaPorId(id);
 
 		if(!inquilinoExiste){
 			throw new Error("inquilino não encontrado");

@@ -1,3 +1,4 @@
+import { inject, injectable} from 'tsyringe';
 import { Contrato } from '../../../model/Contrato'
 import { ContratoRepository } from '../../../repositories/ContratoRepository';
 import { ImovelRepository } from '../../../repositories/ImovelRepository';
@@ -8,30 +9,36 @@ interface IRequest {
 	fim: Date;
 	imovel_id: string; 
 	inquilino_id: string;
-	vencimento: Date;
+	vencimento_fatura: number;
 }
 
+@injectable()
 class CriaContratoService {
 	constructor(
+		@inject("ContratoRepository")
 		private contratoRepository: ContratoRepository,
+
+		@inject("InquilinoRepository")
 		private inquilinoRepository: InquilinoRepository,
+
+		@inject("ImovelRepository")
 		private imovelRepository: ImovelRepository
 	){}
 
-	execute(contrato: IRequest): Contrato | undefined {
-		const inquilinoExiste = this.inquilinoRepository.buscaPorId(contrato.inquilino_id);
+	async execute({inicio, fim, imovel_id, inquilino_id, vencimento_fatura}: IRequest): Promise<Contrato> | undefined {
+		const inquilinoExiste = await this.inquilinoRepository.buscaPorId(inquilino_id);
 
 		if(!inquilinoExiste){
 			throw new Error("Inquilino informado não existe");
 		}
 
-		const imovelExiste = this.imovelRepository.consultaPorId(contrato.imovel_id);
+		const imovelExiste = await this.imovelRepository.buscaPorId(imovel_id);
 
 		if(!imovelExiste){
 			throw new Error("Imóvel informado não existe");
 		}
 
-		const novoContrato = this.contratoRepository.criar(contrato);
+		const novoContrato = await this.contratoRepository.criar({inicio, fim, imovel_id, inquilino_id, vencimento_fatura});
 
 		return novoContrato;
 	}

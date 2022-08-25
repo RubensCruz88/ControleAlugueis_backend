@@ -1,14 +1,15 @@
+import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import { ListaImovelPorIdService } from './ListaImovelPorIdService';
 
 class ListaImovelPorIdController {
-	constructor(private listaImoveisPorIdService: ListaImovelPorIdService){}
-
-	handle(request: Request, response: Response): Response {
+	async handle(request: Request, response: Response): Promise<Response> {
 		const {id} = request.params;
 
+		const listaImovelPorIdService = container.resolve(ListaImovelPorIdService);
+
 		try {
-			const imovel = this.listaImoveisPorIdService.execute(id);
+			const imovel = await listaImovelPorIdService.execute(id);
 
 			return response.json(imovel);
 		} catch(err){

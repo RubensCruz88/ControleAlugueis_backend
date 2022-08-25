@@ -1,14 +1,14 @@
+import { container } from 'tsyringe';
 import { Request, Response } from 'express';
-import { ExcluiImovelService } from '../excluiImovel/excluiImovelService';
+import { ExcluiImovelService } from './ExcluiImovelService';
 
 class ExcluiImovelController {
-	constructor( private excluiImovelService: ExcluiImovelService){}
-
-	handle(request: Request, response: Response): Response {
+	async handle(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params;
+		const excluiImovelService = container.resolve(ExcluiImovelService);
 
 		try {
-			this.excluiImovelService.execute(id);
+			await excluiImovelService.execute(id);
 
 			return response.send();
 		}catch(erro){

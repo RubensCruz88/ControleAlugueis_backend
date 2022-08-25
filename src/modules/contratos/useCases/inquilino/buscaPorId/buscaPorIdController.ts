@@ -1,14 +1,15 @@
+import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import { BuscaPorIdService } from './buscaPorIdService';
 
 class BuscaPorIdController {
-	constructor( private buscaPorIdService: BuscaPorIdService){}
-
-	handle(request: Request, response: Response): Response {
+	async handle(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params
 
+		const buscaPorIdService = container.resolve(BuscaPorIdService);
+
 		try {
-			const inquilino = this.buscaPorIdService.execute(id);
+			const inquilino = await buscaPorIdService.execute(id);
 
 			return response.json(inquilino);
 		} catch(err) {

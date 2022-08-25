@@ -1,11 +1,16 @@
+import { inject, injectable} from 'tsyringe';
 import { Inquilino } from '../../../model/Inquilino';
 import { InquilinoRepository } from '../../../repositories/InquilinoRepository';
 
+@injectable()
 class ListaInquilinosService {
-	constructor(private inquilinoRepository: InquilinoRepository){}
+	constructor(
+		@inject("InquilinoRepository")
+		private inquilinoRepository: InquilinoRepository
+	){}
 
-	execute(): Inquilino[]{
-		const inquilinos = this.inquilinoRepository.listar();
+	async execute(): Promise<Inquilino[]>{
+		const inquilinos = await this.inquilinoRepository.listar();
 
 		return inquilinos;
 	}

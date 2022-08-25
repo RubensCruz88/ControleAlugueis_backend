@@ -1,26 +1,35 @@
 import { v4 as uuid } from 'uuid';
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
+@Entity("imovel")
 class Imovel {
+	@PrimaryColumn()
 	id: string;
+
+	@Column()
 	nome: string;
+
+	@Column()
 	endereco: string;
+
+	@Column()
 	numero: number;
-	valor?: number;
-	valor_iptu?: number;
+
+	@Column()
+	valor_aluguel: number;
+
+	@Column()
+	valor_iptu: number;
+
+	@CreateDateColumn()
 	created_at: Date;
+
+	@CreateDateColumn()
 	updated_at: Date;
 
 	constructor(){
 		if(!this.id){
 			this.id = uuid();
-		}
-
-		if(!this.created_at){
-			this.created_at = new Date();
-		}
-
-		if(!this.updated_at){
-			this.updated_at = new Date();
 		}
 	}
 }

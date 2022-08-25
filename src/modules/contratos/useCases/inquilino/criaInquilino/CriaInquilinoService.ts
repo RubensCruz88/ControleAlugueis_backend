@@ -1,3 +1,4 @@
+import { inject, injectable} from 'tsyringe';
 import { Inquilino } from '../../../model/Inquilino';
 import { InquilinoRepository } from '../../../repositories/InquilinoRepository';
 
@@ -8,22 +9,26 @@ interface IRequest {
 	email: string;
 }
 
+@injectable()
 class CriaInquilinoService {
-	constructor(private inquilinoRepository: InquilinoRepository){}
+	constructor(
+		@inject("InquilinoRepository")
+		private inquilinoRepository: InquilinoRepository
+	){}
 
-	execute(inquilino: IRequest): Inquilino {
+	async execute(inquilino: IRequest): Promise<Inquilino> {
 
 		if(!inquilino.cpf){
 			throw new Error("CPF não informado");
 		}
 
-		const inquilinoExiste = this.inquilinoRepository.buscaPorCPF(inquilino.cpf);
+		const inquilinoExiste = await this.inquilinoRepository.buscaPorCPF(inquilino.cpf);
 
 		if(inquilinoExiste){
 			throw new Error("CPF já cadastrado");
 		}
 
-		const inquilinoCriado = this.inquilinoRepository.criar(inquilino);
+		const inquilinoCriado = await this.inquilinoRepository.criar(inquilino);
 
 		return inquilinoCriado;
 	}

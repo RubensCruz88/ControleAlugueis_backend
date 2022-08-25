@@ -1,32 +1,27 @@
 import { Router } from 'express';
 
-import { criaInquilinoController } from '../modules/contratos/useCases/inquilino/criaInquilino';
-import { listaInquilinoController } from '../modules/contratos/useCases/inquilino/listaInquilinos';
-import { buscaPorIdController } from '../modules/contratos/useCases/inquilino/buscaPorId';
-import { buscaPorCpfController } from '../modules/contratos/useCases/inquilino/buscaPorCpf'
-import { excluiInquilinoController } from '../modules/contratos/useCases/inquilino/excluiInquilino';
+import { CriaInquilinoController } from '../modules/contratos/useCases/inquilino/criaInquilino/CriaInquilinoController';
+import { ListaInquilinoController } from '../modules/contratos/useCases/inquilino/listaInquilinos/listaInquilinoController';
+import { BuscaPorIdController } from '../modules/contratos/useCases/inquilino/buscaPorId/buscaPorIdController';
+import { BuscaPorCpfController } from '../modules/contratos/useCases/inquilino/buscaPorCpf/BuscaPorCpfController'
+import { ExcluiInquilinoController } from '../modules/contratos/useCases/inquilino/excluiInquilino/ExcluiInquilinoController';
 
 const inquilinoRotas = Router();
 
+const criaInquilinoController = new CriaInquilinoController();
+const listaInquilinoController = new ListaInquilinoController();
+const buscaPorCpfController = new BuscaPorCpfController();
+const buscaPorIdController = new BuscaPorIdController();
+const excluirInquilinoController = new ExcluiInquilinoController();
 
-inquilinoRotas.post("/",(request,response) => {
-	criaInquilinoController.handle(request, response);
-})
+inquilinoRotas.post("/",criaInquilinoController.handle);
 
-inquilinoRotas.get("/",(request,response) => {
-	listaInquilinoController.handle(request, response);
-})
+inquilinoRotas.get("/",listaInquilinoController.handle);
 
-inquilinoRotas.get("/:id",(request,response) => {
-	buscaPorIdController.handle(request, response);
-})
+inquilinoRotas.get("/:id",buscaPorIdController.handle);
 
-inquilinoRotas.get("/:cpf",(request,response) => {
-	buscaPorCpfController.handle(request, response);
-})
+inquilinoRotas.get("/:cpf",buscaPorCpfController.handle);
 
-inquilinoRotas.delete("/:id",(request,response) => {
-	excluiInquilinoController.handle(request, response);
-})
+inquilinoRotas.delete("/:id",excluirInquilinoController.handle);
 
 export { inquilinoRotas };

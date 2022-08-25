@@ -1,52 +1,39 @@
+import { Repository } from 'typeorm';
 import { Contrato } from '../model/Contrato';
+import { dataSource } from '../../../database/dataSource'
 
 interface ICriaContratoDTO {
 	inicio: Date;
 	fim: Date;
 	imovel_id: string;
 	inquilino_id: string;
-	vencimento: number;
+	vencimento_fatura: number;
 }
 
 class ContratoRepository {
-	private contratos: Contrato[];
-
-	private static INSTANCE: ContratoRepository;
+	private repositorio: Repository<Contrato>;
 
 	private constructor(){
-		this.contratos = [];
+		this.repositorio = dataSource.getRepository(Contrato);
 	};
 
-	public static getInstance(): ContratoRepository {
-		if (!ContratoRepository.INSTANCE) {
-			ContratoRepository.INSTANCE = new ContratoRepository();
-		}
+	async criar({inicio, fim, imovel_id, inquilino_id, vencimento_fatura}: ICriaContratoDTO): Promise<Contrato>{
+		const data_inicio = new Date(inicio);
+		const data_fim = new Date(fim);
 
-		return ContratoRepository.INSTANCE;
-	};
+		const contrato = this.repositorio.create({inicio: data_inicio, fim: data_fim, imovel_id, inquilino_id, vencimento_fatura});
 
-	criar({inicio, fim, imovel_id, inquilino_id, vencimento}){
-		const contrato = new Contrato();
-
-		Object.assign(contrato,{
-			inicio: new Date(inicio), 
-			fim: new Date (fim), 
-			imovel_id, 
-			inquilino_id, 
-			vencimento
-		});
-
-		this.contratos.push(contrato);
+		await this.repositorio.save(contrato);
 
 		return contrato;
 	};
 
-	listar(): Contrato[] {
-		return this.contratos;
+	async listar(): Promise<Contrato[]> {
+		return await this.repositorio.find();
 	};
 
-	buscaPorId(id: string): Contrato | undefined {
-		const contrato = this.contratos.find(contrato => contrato.id === id);
+	async buscaPorId(id: string): Promise<Contrato> | undefined {
+		const contrato = this.repositorio.findOneBy({id});
 
 		return contrato;
 	};

@@ -6,9 +6,10 @@
 Backend do projeto de controle de alugueis
 
 ## Tecnologias utilizadas
- - Bibliotecas: Express, UUID
- - Banco de Dados: Será implementado PostgreSQL
+ - Bibliotecas: Express, UUID, tsyringe, typeorm
+ - Banco de Dados: PostgreSQL
  - Documentação: Será implementado via Swagger
+
 ### Requisitos
  - [X] Deve ser possível cadastrar um imóvel
  - [X] Deve ser possível consultar um imóvel
@@ -36,3 +37,7 @@ Backend do projeto de controle de alugueis
  - [X] Não deve ser possível cadastrar um contrato com inquilino inexistente
  - [ ] Não deve ser possível cadastrar mais de um contrato para o mesmo imovel, inquilino e período
  - [ ] Não deve ser possível incluir um lançamento com contrato inexistente
+
+### Observações
+ - [ ] Verificar as rotas de busca por ID e Cpf no Inquilino, pois não podem ter duas rotas no mesmo endpoint
+ - [ ] Verificar e implementar as FKs dos Contratos

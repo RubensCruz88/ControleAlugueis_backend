@@ -1,26 +1,23 @@
 import { Router } from 'express';
 
-import { criaImovelController } from '../modules/contratos/useCases/imovel/criaImovel'
-import { listaImoveisController } from '../modules/contratos/useCases/imovel/listaImoveis';
-import { listaImovelPorIdController } from '../modules/contratos/useCases/imovel/listaImoveisPorId';
-import { excluiImovelController } from '../modules/contratos/useCases/imovel/excluiImovel';
+import { CriaImovelController } from '../modules/contratos/useCases/imovel/criaImovel/CriaImovelController'
+import { ListaImoveisController } from '../modules/contratos/useCases/imovel/listaImoveis/ListaImoveisController';
+import { ListaImovelPorIdController } from '../modules/contratos/useCases/imovel/listaImoveisPorId/ListaImovelPorIdController';
+import { ExcluiImovelController } from '../modules/contratos/useCases/imovel/excluiImovel/ExcluiImovelController';
 
 const imovelRotas = Router();
 
-imovelRotas.post("/",(request, response)=>{
-	criaImovelController.handle(request, response);
-})
+const criaImovelController = new CriaImovelController();
+const listaImoveis = new ListaImoveisController();
+const listaImovelPorId = new ListaImovelPorIdController();
+const excluiImovel = new ExcluiImovelController();
 
-imovelRotas.get("/",(request,response) =>{
-	listaImoveisController.handle(request, response);
-});
+imovelRotas.post("/",criaImovelController.handle);
 
-imovelRotas.get("/:id",(request,response) =>{
-	listaImovelPorIdController.handle(request, response);
-});
+imovelRotas.get("/",listaImoveis.handle);
 
-imovelRotas.delete("/:id",(request,response) =>{
-	excluiImovelController.handle(request,response);
-});
+imovelRotas.get("/:id",listaImovelPorId.handle);
+
+imovelRotas.delete("/:id",excluiImovel.handle);
 
 export { imovelRotas };

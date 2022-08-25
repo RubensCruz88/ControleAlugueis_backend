@@ -1,14 +1,14 @@
+import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import { ExcluiInquilinoService } from './ExcluiInquilinoService'
 
 class ExcluiInquilinoController {
-	constructor( private excluiInquilinoService: ExcluiInquilinoService){}
-
-	handle(request: Request, response: Response): Response {
+	async handle(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params;
+		const excluiInquilinoService = container.resolve(ExcluiInquilinoService);
 
 		try {
-			this.excluiInquilinoService.execute(id);
+			await excluiInquilinoService.execute(id);
 
 			return response.send();
 		} catch(err) {

@@ -1,11 +1,20 @@
+import { inject, injectable} from 'tsyringe';
 import { Inquilino } from '../../../model/Inquilino';
 import { InquilinoRepository } from '../../../repositories/InquilinoRepository';
 
+@injectable()
 class BuscaPorCpfService {
-	constructor(private inquilinoRepository: InquilinoRepository){}
+	constructor(
+		@inject("InquilinoRepository")
+		private inquilinoRepository: InquilinoRepository
+	){}
 
-	execute(cpf: string): Inquilino {
-		const inquilino = this.inquilinoRepository.buscaPorCPF(cpf);
+	async execute(cpf: string): Promise<Inquilino> {
+		const inquilino = await this.inquilinoRepository.buscaPorCPF(cpf);
+
+		if(!inquilino){
+			throw new Error("Inquilino não encontrado");
+		}
 
 		return inquilino;
 	}
