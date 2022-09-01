@@ -1,4 +1,5 @@
 import { inject, injectable} from 'tsyringe';
+import { AppError } from '../../../../../errors/AppError';
 import { InquilinoRepository } from '../../../repositories/InquilinoRepository';
 
 @injectable()
@@ -12,7 +13,7 @@ class ExcluiInquilinoService {
 		const inquilinoExiste = await this.inquilinoRepository.buscaPorId(id);
 
 		if(!inquilinoExiste){
-			throw new Error("inquilino não encontrado");
+			throw new AppError("inquilino não encontrado");
 		}
 
 		this.inquilinoRepository.excluir(id);

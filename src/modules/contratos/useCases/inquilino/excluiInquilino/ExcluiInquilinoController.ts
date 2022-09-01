@@ -7,13 +7,9 @@ class ExcluiInquilinoController {
 		const { id } = request.params;
 		const excluiInquilinoService = container.resolve(ExcluiInquilinoService);
 
-		try {
-			await excluiInquilinoService.execute(id);
+		await excluiInquilinoService.execute(id);
 
-			return response.send();
-		} catch(err) {
-			return response.status(400).json({erro: err.message});
-		}
+		return response.send();
 	}
 
 }

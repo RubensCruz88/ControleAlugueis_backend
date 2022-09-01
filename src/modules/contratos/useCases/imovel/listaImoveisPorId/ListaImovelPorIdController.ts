@@ -8,13 +8,9 @@ class ListaImovelPorIdController {
 
 		const listaImovelPorIdService = container.resolve(ListaImovelPorIdService);
 
-		try {
-			const imovel = await listaImovelPorIdService.execute(id);
+		const imovel = await listaImovelPorIdService.execute(id);
 
-			return response.json(imovel);
-		} catch(err){
-			return response.status(404).json({erro: err.message});
-		}
+		return response.json(imovel);
 	}
 }
 

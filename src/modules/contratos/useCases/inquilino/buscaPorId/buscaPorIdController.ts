@@ -8,13 +8,9 @@ class BuscaPorIdController {
 
 		const buscaPorIdService = container.resolve(BuscaPorIdService);
 
-		try {
-			const inquilino = await buscaPorIdService.execute(id);
+		const inquilino = await buscaPorIdService.execute(id);
 
-			return response.json(inquilino);
-		} catch(err) {
-			return response.status(404).json({erro: err.message});
-		}
+		return response.json(inquilino);
 	}
 
 }

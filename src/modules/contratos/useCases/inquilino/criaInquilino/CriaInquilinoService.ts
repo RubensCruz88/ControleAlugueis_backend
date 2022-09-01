@@ -1,4 +1,5 @@
 import { inject, injectable} from 'tsyringe';
+import { AppError } from '../../../../../errors/AppError';
 import { Inquilino } from '../../../model/Inquilino';
 import { InquilinoRepository } from '../../../repositories/InquilinoRepository';
 
@@ -19,13 +20,13 @@ class CriaInquilinoService {
 	async execute(inquilino: IRequest): Promise<Inquilino> {
 
 		if(!inquilino.cpf){
-			throw new Error("CPF não informado");
+			throw new AppError("CPF não informado");
 		}
 
 		const inquilinoExiste = await this.inquilinoRepository.buscaPorCPF(inquilino.cpf);
 
 		if(inquilinoExiste){
-			throw new Error("CPF já cadastrado");
+			throw new AppError("CPF já cadastrado");
 		}
 
 		const inquilinoCriado = await this.inquilinoRepository.criar(inquilino);

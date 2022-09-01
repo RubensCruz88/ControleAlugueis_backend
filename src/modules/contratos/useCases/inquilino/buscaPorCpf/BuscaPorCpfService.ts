@@ -1,4 +1,5 @@
 import { inject, injectable} from 'tsyringe';
+import { AppError } from '../../../../../errors/AppError';
 import { Inquilino } from '../../../model/Inquilino';
 import { InquilinoRepository } from '../../../repositories/InquilinoRepository';
 
@@ -13,7 +14,7 @@ class BuscaPorCpfService {
 		const inquilino = await this.inquilinoRepository.buscaPorCPF(cpf);
 
 		if(!inquilino){
-			throw new Error("Inquilino não encontrado");
+			throw new AppError("Inquilino não encontrado");
 		}
 
 		return inquilino;

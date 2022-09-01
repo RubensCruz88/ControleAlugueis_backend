@@ -7,13 +7,9 @@ class ExcluiImovelController {
 		const { id } = request.params;
 		const excluiImovelService = container.resolve(ExcluiImovelService);
 
-		try {
-			await excluiImovelService.execute(id);
+		await excluiImovelService.execute(id);
 
-			return response.send();
-		}catch(erro){
-			return response.status(404).json({erro: erro.message});
-		}
+		return response.send();
 	}
 
 }

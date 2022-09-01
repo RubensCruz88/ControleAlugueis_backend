@@ -41,3 +41,4 @@ Backend do projeto de controle de alugueis
 ### Observações
  - [ ] Verificar as rotas de busca por ID e Cpf no Inquilino, pois não podem ter duas rotas no mesmo endpoint
  - [ ] Verificar e implementar as FKs dos Contratos
+ - [ ] Implementar usuário vinculado ao inquilino que irá consultar apenas os contratos que ele está vinculado

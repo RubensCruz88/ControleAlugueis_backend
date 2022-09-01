@@ -1,4 +1,5 @@
 import { inject, injectable} from 'tsyringe';
+import { AppError } from '../../../../../errors/AppError';
 import { Imovel } from '../../../model/Imovel';
 import { ImovelRepository } from '../../../repositories/ImovelRepository';
 
@@ -20,13 +21,13 @@ class CriaImovelService {
 	async execute(imovel: IRequest): Promise<Imovel> {
 		
 		if(!imovel.nome){
-			throw new Error("Nome do imóvel não informado");
+			throw new AppError("Nome do imóvel não informado");
 		}
 
 		const imovelExistente = await this.imovelRepository.buscaPorNome(imovel.nome);
 
 		if(imovelExistente){
-			throw new Error("nome de imóvel já existe");
+			throw new AppError("nome de imóvel já existe");
 		}
 
 		const retornoImovel = await this.imovelRepository.criar(imovel);

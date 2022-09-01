@@ -8,13 +8,9 @@ class CriaImovelController {
 
 		const criaImovelService = container.resolve(CriaImovelService);
 
-		try {
-			const imovelCriado = await criaImovelService.execute({ nome, endereco, numero, valor_aluguel, valor_iptu});
-	
-			return response.json(imovelCriado);
-		} catch(err){
-			return response.status(400).json({erro: err.message});
-		}
+		const imovelCriado = await criaImovelService.execute({ nome, endereco, numero, valor_aluguel, valor_iptu});
+
+		return response.json(imovelCriado);
 	}
 
 }

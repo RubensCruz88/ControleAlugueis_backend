@@ -8,13 +8,9 @@ class BuscaPorCpfController {
 
 		const buscaPorCpfService = container.resolve(BuscaPorCpfService);
 
-		try {
-			const inquilino = await buscaPorCpfService.execute(cpf);
+		const inquilino = await buscaPorCpfService.execute(cpf);
 
-			return response.json(inquilino);
-		} catch(err){
-			return response.status(404).json({erro: err.message});
-		}
+		return response.json(inquilino);
 	}
 
 }

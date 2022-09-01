@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { verificaAutenticacao } from '../middleware/verificaAutenticacao';
 
 import { CriaImovelController } from '../modules/contratos/useCases/imovel/criaImovel/CriaImovelController'
 import { ListaImoveisController } from '../modules/contratos/useCases/imovel/listaImoveis/ListaImoveisController';
@@ -12,12 +13,11 @@ const listaImoveis = new ListaImoveisController();
 const listaImovelPorId = new ListaImovelPorIdController();
 const excluiImovel = new ExcluiImovelController();
 
+imovelRotas.use(verificaAutenticacao);
+
 imovelRotas.post("/",criaImovelController.handle);
-
 imovelRotas.get("/",listaImoveis.handle);
-
 imovelRotas.get("/:id",listaImovelPorId.handle);
-
 imovelRotas.delete("/:id",excluiImovel.handle);
 
 export { imovelRotas };

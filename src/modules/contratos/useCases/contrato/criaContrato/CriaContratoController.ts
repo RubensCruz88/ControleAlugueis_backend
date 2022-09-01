@@ -8,13 +8,9 @@ class CriaContratoController {
 
 		const criaContratoService = container.resolve(CriaContratoService);
 
-		try {
-			const novoContrato = await criaContratoService.execute({inicio, fim, imovel_id, inquilino_id, vencimento_fatura} );
+		const novoContrato = await criaContratoService.execute({inicio, fim, imovel_id, inquilino_id, vencimento_fatura} );
 
-			return response.json(novoContrato);
-		} catch(err){
-			return response.status(400).json({erro: err.message});
-		}
+		return response.json(novoContrato);
 	}
 
 }

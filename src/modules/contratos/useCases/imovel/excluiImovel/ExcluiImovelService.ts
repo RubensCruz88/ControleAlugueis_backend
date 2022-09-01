@@ -1,4 +1,5 @@
 import { inject, injectable} from 'tsyringe';
+import { AppError } from '../../../../../errors/AppError';
 import { Imovel } from '../../../model/Imovel';
 import { ImovelRepository } from '../../../repositories/ImovelRepository';
 
@@ -13,7 +14,7 @@ class ExcluiImovelService {
 		const imovel = await this.imovelRepository.buscaPorId(id);
 
 		if (!imovel){
-			throw new Error("Imóvel não localizado");
+			throw new AppError("Imóvel não localizado");
 		}
 
 		await this.imovelRepository.excluir(id);

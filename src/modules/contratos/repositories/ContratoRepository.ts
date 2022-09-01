@@ -13,7 +13,7 @@ interface ICriaContratoDTO {
 class ContratoRepository {
 	private repositorio: Repository<Contrato>;
 
-	private constructor(){
+	constructor(){
 		this.repositorio = dataSource.getRepository(Contrato);
 	};
 
@@ -33,7 +33,7 @@ class ContratoRepository {
 	};
 
 	async buscaPorId(id: string): Promise<Contrato> | undefined {
-		const contrato = this.repositorio.findOneBy({id});
+		const contrato = await this.repositorio.findOneBy({id});
 
 		return contrato;
 	};

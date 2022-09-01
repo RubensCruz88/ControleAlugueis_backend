@@ -8,18 +8,14 @@ class CriaInquilinoController {
 
 		const criaInquilinoService = container.resolve(CriaInquilinoService);
 
-		try {
-			const inquilino = await criaInquilinoService.execute({
-				cpf,
-				nome,
-				telefone,
-				email
-			});
-	
-			return response.json(inquilino);
-		} catch(err) {
-			return response.status(400).json({erro: err.message});
-		}
+		const inquilino = await criaInquilinoService.execute({
+			cpf,
+			nome,
+			telefone,
+			email
+		});
+
+		return response.json(inquilino);
 
 	}
 
