@@ -1,6 +1,5 @@
 import { inject, injectable} from 'tsyringe';
-import { AppError } from '../../../../../errors/AppError';
-import { Imovel } from '../../../model/Imovel';
+import { AppError } from '@errors/AppError';
 import { ImovelRepository } from '../../../repositories/ImovelRepository';
 
 @injectable()

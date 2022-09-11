@@ -2,6 +2,15 @@
 ![ts](https://badgen.net/badge/npm/v8.3.1/green)
 ![ts](https://badgen.net/badge/version/1.0.0/orange)
 
+## Para próximo Commit
+ - [ ] Alterar Regra do updated_at para UpdateDateColumn
+ - [ ] Alterar pastas Model para Entities
+ - [ ] Incluir mapeamento de pastas no tsconfig
+ - [ ] Criar uma camada de infra com o Banco de Dados utilizado
+ - [ ] Colocar chave estrangeira
+ - [ ] Colocar busca por CPF por query params
+ - [ ] Criar seed com cadastro básico para testes
+
 # ControleAlugueis_backend
 Backend do projeto de controle de alugueis
 

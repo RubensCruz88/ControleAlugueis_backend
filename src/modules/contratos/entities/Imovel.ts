@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import { Column, CreateDateColumn, UpdateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity("imovel")
 class Imovel {
@@ -24,7 +24,7 @@ class Imovel {
 	@CreateDateColumn()
 	created_at: Date;
 
-	@CreateDateColumn()
+	@UpdateDateColumn()
 	updated_at: Date;
 
 	constructor(){

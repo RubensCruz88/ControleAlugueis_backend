@@ -1,5 +1,5 @@
 import { inject, injectable} from 'tsyringe';
-import { Inquilino } from '../../../model/Inquilino';
+import { Inquilino } from '../../../entities/Inquilino';
 import { InquilinoRepository } from '../../../repositories/InquilinoRepository';
 
 @injectable()

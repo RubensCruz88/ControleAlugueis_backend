@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Contrato } from '../model/Contrato';
+import { Contrato } from '../entities/Contrato';
 import { dataSource } from '../../../database/dataSource'
 
 interface ICriaContratoDTO {

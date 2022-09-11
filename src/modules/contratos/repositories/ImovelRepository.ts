@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
-import { Imovel } from '../model/Imovel';
-import { dataSource } from '../../../database/dataSource'
+import { Imovel } from '../entities/Imovel';
+import { dataSource } from '@database/dataSource'
 
 interface ICriaImovelDTO {
 	nome: string;

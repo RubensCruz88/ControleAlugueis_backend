@@ -1,6 +1,6 @@
 import { inject, injectable} from 'tsyringe';
 import { AppError } from '../../../../../errors/AppError';
-import { Contrato } from '../../../model/Contrato'
+import { Contrato } from '../../../entities/Contrato'
 import { ContratoRepository } from '../../../repositories/ContratoRepository';
 import { ImovelRepository } from '../../../repositories/ImovelRepository';
 import { InquilinoRepository } from '../../../repositories/InquilinoRepository';

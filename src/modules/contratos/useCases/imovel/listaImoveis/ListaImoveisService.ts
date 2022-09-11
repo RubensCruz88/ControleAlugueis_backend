@@ -1,5 +1,5 @@
 import { inject, injectable} from 'tsyringe';
-import { Imovel } from '../../../model/Imovel';
+import { Imovel } from '../../../entities/Imovel';
 import { ImovelRepository } from '../../../repositories/ImovelRepository';
 
 @injectable()

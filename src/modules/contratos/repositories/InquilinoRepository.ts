@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Inquilino } from '../model/Inquilino';
+import { Inquilino } from '../entities/Inquilino';
 import { dataSource } from '../../../database/dataSource'
 
 interface ICriaInquilinoDTO {

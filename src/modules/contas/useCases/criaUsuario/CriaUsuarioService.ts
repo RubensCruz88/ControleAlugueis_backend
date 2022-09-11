@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
-import { AppError } from '../../../../errors/AppError';
-import { Usuario } from '../../model/Usuario';
+import { AppError } from '@errors/AppError';
+import { Usuario } from '../../entities/Usuario';
 import { UsuarioRepository } from '../../repositories/UsuarioRepository';
 import { hash } from 'bcryptjs'
 

@@ -1,6 +1,6 @@
 import { Repository, Timestamp } from 'typeorm';
-import { Usuario } from '../model/Usuario';
-import { dataSource } from '../../../database/dataSource';
+import { Usuario } from '../entities/Usuario';
+import { dataSource } from '@database/dataSource'; 
 
 interface ICriaUsuarioDTO {
 	nome: string;

@@ -13,6 +13,7 @@ const listaImoveis = new ListaImoveisController();
 const listaImovelPorId = new ListaImovelPorIdController();
 const excluiImovel = new ExcluiImovelController();
 
+//deve verificar a autenticação em todas as rotas, pois não pode exibir as informações dos imóveis sem estar logado
 imovelRotas.use(verificaAutenticacao);
 
 imovelRotas.post("/",criaImovelController.handle);

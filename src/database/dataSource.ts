@@ -1,4 +1,7 @@
 import { DataSource } from 'typeorm';
+import { Usuario } from '@modules/contas/entities/Usuario';
+import { Imovel } from '@modules/contratos/entities/Imovel';
+import { Inquilino } from '@modules/contratos/entities/Inquilino';
 
 const dataSource = new DataSource({
 	type: "postgres",
@@ -8,10 +11,10 @@ const dataSource = new DataSource({
 	password: "docker",
 	database: "alugueis",
 	entities: [
-		"src/modules/contratos/model/Imovel.ts",
-		"src/modules/contratos/model/Inquilino.ts",
-		"src/modules/contratos/model/Contrato.ts",
-		"src/modules/contas/model/Usuario.ts"
+		Usuario,
+		Imovel,
+		Inquilino,
+		"src/modules/contratos/entities/Contrato.ts"
 	],
 	migrations: [
 		"src/database/migrations/1661210835895-criaImovel.ts",
