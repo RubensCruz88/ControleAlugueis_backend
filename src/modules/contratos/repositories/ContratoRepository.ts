@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { Contrato } from '../entities/Contrato';
 import { dataSource } from '../../../database/dataSource'
 
@@ -32,11 +32,34 @@ class ContratoRepository {
 		return await this.repositorio.find();
 	};
 
+	async listaAtivos(): Promise<Contrato[]> {
+		return await this.repositorio.find({
+			where: [
+				{
+					inicio: LessThanOrEqual(new Date()),
+					fim: MoreThanOrEqual(new Date())
+				}
+			]
+		});
+	}
+
 	async buscaPorId(id: string): Promise<Contrato> | undefined {
 		const contrato = await this.repositorio.findOneBy({id});
 
 		return contrato;
 	};
+
+	async verificaContratoAtivo(imovel_id: string): Promise<Contrato> {
+		return await this.repositorio.findOne({
+			where: [
+				{
+					imovel_id,
+					inicio: LessThanOrEqual(new Date()),
+					fim: MoreThanOrEqual(new Date())
+				}
+			]
+		})
+	}
 
 }
 

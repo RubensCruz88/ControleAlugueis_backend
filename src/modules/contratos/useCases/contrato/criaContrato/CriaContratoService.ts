@@ -1,5 +1,5 @@
 import { inject, injectable} from 'tsyringe';
-import { AppError } from '../../../../../errors/AppError';
+import { AppError } from '@errors/AppError';
 import { Contrato } from '../../../entities/Contrato'
 import { ContratoRepository } from '../../../repositories/ContratoRepository';
 import { ImovelRepository } from '../../../repositories/ImovelRepository';
@@ -37,6 +37,12 @@ class CriaContratoService {
 
 		if(!imovelExiste){
 			throw new AppError("Imóvel informado não existe");
+		}
+
+		const contratoExiste = await this.contratoRepository.verificaContratoAtivo(imovel_id);
+
+		if(contratoExiste){
+			throw new AppError("Já existe um contrato ativo para este imóvel");
 		}
 
 		const novoContrato = await this.contratoRepository.criar({inicio, fim, imovel_id, inquilino_id, vencimento_fatura});

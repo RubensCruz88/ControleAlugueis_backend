@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { verificaAutenticacao } from '../middleware/verificaAutenticacao';
 
-import { CriaImovelController } from '../modules/contratos/useCases/imovel/criaImovel/CriaImovelController'
-import { ListaImoveisController } from '../modules/contratos/useCases/imovel/listaImoveis/ListaImoveisController';
-import { ListaImovelPorIdController } from '../modules/contratos/useCases/imovel/listaImoveisPorId/ListaImovelPorIdController';
-import { ExcluiImovelController } from '../modules/contratos/useCases/imovel/excluiImovel/ExcluiImovelController';
+import { CriaImovelController } from '@modules/contratos/useCases/imovel/criaImovel/CriaImovelController'
+import { ListaImoveisController } from '@modules/contratos/useCases/imovel/listaImoveis/ListaImoveisController';
+import { ListaImovelPorIdController } from '@modules/contratos/useCases/imovel/listaImoveisPorId/ListaImovelPorIdController';
+import { ExcluiImovelController } from '@modules/contratos/useCases/imovel/excluiImovel/ExcluiImovelController';
 
 const imovelRotas = Router();
 

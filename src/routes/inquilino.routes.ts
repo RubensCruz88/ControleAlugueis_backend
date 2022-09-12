@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { verificaAutenticacao } from '../middleware/verificaAutenticacao';
 
-import { CriaInquilinoController } from '../modules/contratos/useCases/inquilino/criaInquilino/CriaInquilinoController';
-import { ListaInquilinoController } from '../modules/contratos/useCases/inquilino/listaInquilinos/listaInquilinoController';
-import { BuscaPorIdController } from '../modules/contratos/useCases/inquilino/buscaPorId/buscaPorIdController';
-import { ExcluiInquilinoController } from '../modules/contratos/useCases/inquilino/excluiInquilino/ExcluiInquilinoController';
+import { CriaInquilinoController } from '@modules/contratos/useCases/inquilino/criaInquilino/CriaInquilinoController';
+import { ListaInquilinoController } from '@modules/contratos/useCases/inquilino/listaInquilinos/listaInquilinoController';
+import { BuscaPorIdController } from '@modules/contratos/useCases/inquilino/buscaPorId/buscaPorIdController';
+import { ExcluiInquilinoController } from '@modules/contratos/useCases/inquilino/excluiInquilino/ExcluiInquilinoController';
 
 const inquilinoRotas = Router();
 

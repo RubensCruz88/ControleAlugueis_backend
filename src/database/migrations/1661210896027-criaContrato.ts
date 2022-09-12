@@ -43,12 +43,33 @@ export class criaContrato1661210896027 implements MigrationInterface {
 						type: "timestamp",
 						isNullable: true
 					}
+				],
+				foreignKeys: [
+					{
+						name: "FKContratoInquilino",
+						referencedTableName: "inquilino",
+						referencedColumnNames: ["id"],
+						columnNames: ["inquilino_id"],
+						onDelete: "SET NULL",
+						onUpdate: "SET NULL"
+					},
+					{
+						name: "FKContratoImovel",
+						referencedTableName: "imovel",
+						referencedColumnNames: ["id"],
+						columnNames: ["imovel_id"],
+						onDelete: "SET NULL",
+						onUpdate: "SET NULL"
+					}
+
 				]
 			})
 		)
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+		await queryRunner.dropForeignKey("contrato","FKContratoInquilino")
+		await queryRunner.dropForeignKey("contrato","FKContratoImovel")
 		await queryRunner.dropTable("contrato")
     }
 

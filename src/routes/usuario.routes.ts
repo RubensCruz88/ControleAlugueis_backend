@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { CriaUsuarioController } from '../modules/contas/useCases/criaUsuario/CriaUsuarioController'
+import { CriaUsuarioController } from '@modules/contas/useCases/criaUsuario/CriaUsuarioController'
 
 const usuarioRotas = Router();
 
