@@ -12,6 +12,7 @@ import { inquilinoRotas } from './routes/inquilino.routes';
 import { contratoRotas } from './routes/contrato.routes';
 import { usuarioRotas } from './routes/usuario.routes';
 import { autenticaRotas } from './routes/autentica.routes';
+import { lancamentoRotas } from './routes/lancamento.routes';
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(autenticaRotas);
 app.use("/imovel", imovelRotas);
 app.use("/inquilino",inquilinoRotas);
 app.use("/contrato",contratoRotas);
+app.use("/lancamento",lancamentoRotas);
 
 //aplica tratativa de erro como um midware para ser utilizado na aplicação inteira 
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {

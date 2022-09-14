@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
-import { Column, CreateDateColumn, UpdateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import { Column, CreateDateColumn, UpdateDateColumn, Entity, PrimaryColumn, OneToMany } from 'typeorm';
+import { Contrato } from './Contrato';
 
 @Entity("imovel")
 class Imovel {
@@ -26,6 +27,9 @@ class Imovel {
 
 	@UpdateDateColumn()
 	updated_at: Date;
+
+	@OneToMany(type => Contrato, contrato => contrato.imovel)
+	contratos: Contrato[];
 
 	constructor(){
 		if(!this.id){

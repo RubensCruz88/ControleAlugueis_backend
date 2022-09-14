@@ -59,6 +59,16 @@ class ContratoRepository {
 				}
 			]
 		})
+	};
+
+	async listaLancamentosContrato(contrato_id: string): Promise<Contrato> {
+		const contrato = await this.repositorio
+			.createQueryBuilder("contrato")
+			.leftJoinAndSelect("contrato.lancamentos","lancamentos")
+			.where("contrato.id = :contrato_id",{contrato_id})
+			.getOne()
+
+		return contrato;
 	}
 
 }

@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { Inquilino } from '../entities/Inquilino';
-import { dataSource } from '../../../database/dataSource'
+import { dataSource } from '@database/dataSource'
 
 interface ICriaInquilinoDTO {
 	cpf: string;

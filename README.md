@@ -3,8 +3,8 @@
 ![ts](https://badgen.net/badge/version/1.0.0/orange)
 
 ## Para próximo Commit
- - [ ] Criar uma camada de infra com o Banco de Dados utilizado
- - [ ] Criar seed com cadastro básico para testes
+ - Criar rotas com as demais FKs
+ - [ ] Criar uma camada de infra com o Banco de Dados utilizado > Verificar necessidade
 
 # ControleAlugueis_backend
 Backend do projeto de controle de alugueis
@@ -28,21 +28,17 @@ Backend do projeto de controle de alugueis
  - [X] Deve ser possível excluir um contrato
  - [X] Deve ser possível consultar todos os contratos de um inquilino
  - [ ] Deve ser possível copiar um contrato
- - [ ] Deve ser possível incluir um lançamento
+ - [X] Deve ser possível incluir um lançamento
  - [ ] Deve ser possível excluir um lançamento
- - [ ] Deve ser possível consultar um lançamento
- - [ ] Deve ser possível consultar todos os lançamentos de um contrato
- - [ ] Deve ser possível consultar todos os lançamentos de um contrato em um período
+ - [X] Deve ser possível consultar um lançamento
+ - [X] Deve ser possível consultar todos os lançamentos de um contrato
+ - [X] Deve ser possível consultar todos os lançamentos de um contrato em um período
 
 ### Regras de negócio
  - [X] Não deve ser possível cadastrar um imóvel com nome existente
  - [X] Não deve ser possível cadastrar um inquilino com CPF existente
  - [X] Não deve ser possível cadastrar um contrato com imóvel inexistente
  - [X] Não deve ser possível cadastrar um contrato com inquilino inexistente
- - [ ] Não deve ser possível cadastrar mais de um contrato para o mesmo imovel, inquilino e período
- - [ ] Não deve ser possível incluir um lançamento com contrato inexistente
+ - [X] Não deve ser possível cadastrar mais de um contrato para o mesmo imovel e período
+ - [X] Não deve ser possível incluir um lançamento com contrato inexistente
 
-### Observações
- - [ ] Verificar as rotas de busca por ID e Cpf no Inquilino, pois não podem ter duas rotas no mesmo endpoint
- - [ ] Verificar e implementar as FKs dos Contratos
- - [ ] Implementar usuário vinculado ao inquilino que irá consultar apenas os contratos que ele está vinculado

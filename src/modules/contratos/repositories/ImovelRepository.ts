@@ -52,8 +52,18 @@ class ImovelRepository implements IImovelRepository{
 	}
 
 	async excluir(id: string): Promise<void> {
-		const indiceImovel = await this.repositorio.delete({id});
+		await this.repositorio.delete({id});
 		
+	}
+
+	async listaContratos(id: string): Promise<Imovel>{
+		const contratos = await this.repositorio
+			.createQueryBuilder("imovel")
+			.leftJoinAndSelect("imovel.contratos","contratos")
+			.where("imovel.id = :id",{id})
+			.getOne();
+
+		return contratos;
 	}
 	
 }
